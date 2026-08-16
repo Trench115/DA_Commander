@@ -19,14 +19,20 @@ function primeAudio() {
 
 function beep() {
   if (!audioCtx) return;
-  const osc = audioCtx.createOscillator();
-  const gain = audioCtx.createGain();
-  osc.connect(gain);
-  gain.connect(audioCtx.destination);
-  osc.frequency.value = 880;
-  gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
-  osc.start();
-  osc.stop(audioCtx.currentTime + 0.4);
+
+  const tones = [880, 660, 880];
+  tones.forEach((frequency, index) => {
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+    osc.frequency.setValueAtTime(frequency, audioCtx.currentTime + index * 0.22);
+    gain.gain.setValueAtTime(0, audioCtx.currentTime + index * 0.22);
+    gain.gain.linearRampToValueAtTime(0.25, audioCtx.currentTime + index * 0.22 + 0.02);
+    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + index * 0.22 + 0.18);
+    osc.start(audioCtx.currentTime + index * 0.22);
+    osc.stop(audioCtx.currentTime + index * 0.22 + 0.18);
+  });
 }
 
 // Registro común del Service Worker (modo offline)

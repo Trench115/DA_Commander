@@ -20,7 +20,7 @@
 }
 
 html, body {
-  height: 100%;
+  min-height: 100%;
   background-color: var(--bg);
   background-image: repeating-linear-gradient(
     0deg,
@@ -31,7 +31,9 @@ html, body {
   );
   font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
   color: var(--text);
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 a {
@@ -135,7 +137,7 @@ a {
 /* ---------- PANTALLA DE MODO DE JUEGO ---------- */
 
 .app {
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   position: relative;
@@ -161,11 +163,11 @@ a {
 .main-timer {
   background: var(--panel);
   border-bottom: 1px solid var(--line);
-  padding: 28px 16px 14px;
+  padding: 18px 14px 12px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
 }
 
 .main-timer-label {
@@ -176,7 +178,7 @@ a {
 }
 
 .main-timer-display {
-  font-size: 50px;
+  font-size: 44px;
   font-weight: 800;
   color: var(--accent);
   font-variant-numeric: tabular-nums;
@@ -283,15 +285,15 @@ a {
 }
 
 .team-name {
-  font-size: 19px;
+  font-size: 17px;
   font-weight: 700;
   color: rgba(255, 255, 255, 0.8);
-  letter-spacing: 3px;
+  letter-spacing: 2px;
   text-transform: uppercase;
 }
 
 .team-time {
-  font-size: 52px;
+  font-size: 46px;
   font-weight: 800;
   color: white;
   font-variant-numeric: tabular-nums;
@@ -341,15 +343,15 @@ a {
 }
 
 .score-team-name {
-  font-size: 19px;
+  font-size: 17px;
   font-weight: 700;
   color: rgba(255, 255, 255, 0.8);
-  letter-spacing: 3px;
+  letter-spacing: 2px;
   text-transform: uppercase;
 }
 
 .score-value {
-  font-size: 68px;
+  font-size: 58px;
   font-weight: 800;
   color: white;
   font-variant-numeric: tabular-nums;
@@ -454,15 +456,15 @@ a {
 .controls {
   display: flex;
   gap: 12px;
-  padding: 16px;
+  padding: 12px 16px 18px;
   background: var(--bg);
 }
 
 .btn-secondary, .btn-primary {
   flex: 1;
-  padding: 18px;
+  padding: 15px 12px;
   border-radius: 2px;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 700;
   font-family: inherit;
   letter-spacing: 1px;
@@ -521,6 +523,48 @@ a {
   font-size: 16px;
   margin-bottom: 24px;
   letter-spacing: 1px;
+}
+
+@media (max-width: 480px) {
+  .main-timer {
+    padding: 16px 12px 10px;
+  }
+
+  .main-timer-display {
+    font-size: 38px;
+  }
+
+  .team-name,
+  .score-team-name {
+    font-size: 14px;
+    letter-spacing: 1px;
+  }
+
+  .team-time {
+    font-size: 40px;
+  }
+
+  .score-value {
+    font-size: 48px;
+  }
+
+  .btn-minus {
+    width: 34px;
+    height: 34px;
+    top: 8px;
+    right: 8px;
+    font-size: 12px;
+  }
+
+  .controls {
+    gap: 8px;
+    padding: 10px 12px 16px;
+  }
+
+  .btn-secondary, .btn-primary {
+    padding: 12px 10px;
+    font-size: 11px;
+  }
 }
 
 .modal-content button {

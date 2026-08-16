@@ -1,7 +1,7 @@
 // ================== ESTADO ==================
 // (formatTime, primeAudio y beep vienen de common.js)
 
-let mainDuration = 300;
+let mainDuration = 15 * 60;
 let mainElapsedMs = 0;
 let mainRunning = false;
 let started = false;
