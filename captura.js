@@ -1,5 +1,4 @@
 // ================== ESTADO ==================
-// (formatTime, primeAudio y beep vienen de common.js)
 
 let mainDuration = 300;
 let mainElapsedMs = 0;
@@ -7,9 +6,8 @@ let mainRunning = false;
 let started = false;
 let overtimeAlerted = false;
 
-let timeRed = 0;
-let timeBlue = 0;
-let activeTeam = null; // 'red' | 'blue' | null
+let scoreRed = 0;
+let scoreBlue = 0;
 
 let lastTick = null;
 let loopId = null;
@@ -19,20 +17,18 @@ let loopId = null;
 const mainTimerDisplay = document.getElementById('mainTimerDisplay');
 const setupControls = document.getElementById('setupControls');
 const mainPlayPause = document.getElementById('mainPlayPause');
-
-const teamRedEl = document.getElementById('teamRed');
-const teamBlueEl = document.getElementById('teamBlue');
-const timeRedEl = document.getElementById('timeRed');
-const timeBlueEl = document.getElementById('timeBlue');
-const percentRedEl = document.getElementById('percentRed');
-const percentBlueEl = document.getElementById('percentBlue');
-
+const scoreRedEl = document.getElementById('scoreRed');
+const scoreBlueEl = document.getElementById('scoreBlue');
 const resetBtn = document.getElementById('resetBtn');
 const finishBtn = document.getElementById('finishBtn');
 const modal = document.getElementById('modal');
 const modalWinner = document.getElementById('modalWinner');
 const modalDetail = document.getElementById('modalDetail');
 const closeModal = document.getElementById('closeModal');
+const minusRedBtn = document.getElementById('minusRed');
+const minusBlueBtn = document.getElementById('minusBlue');
+const scoreCardRed = document.getElementById('scoreCardRed');
+const scoreCardBlue = document.getElementById('scoreCardBlue');
 
 // ================== RENDER ==================
 
@@ -56,20 +52,9 @@ function renderMain() {
   mainPlayPause.classList.toggle('running', mainRunning);
 }
 
-function renderTeams() {
-  timeRedEl.textContent = formatTime(timeRed);
-  timeBlueEl.textContent = formatTime(timeBlue);
-
-  const total = timeRed + timeBlue;
-  const pRed = total > 0 ? Math.round((timeRed / total) * 100) : 50;
-  const pBlue = total > 0 ? 100 - pRed : 50;
-  percentRedEl.textContent = `${pRed}%`;
-  percentBlueEl.textContent = `${pBlue}%`;
-
-  teamRedEl.classList.toggle('active', activeTeam === 'red');
-  teamBlueEl.classList.toggle('active', activeTeam === 'blue');
-  teamRedEl.classList.toggle('disabled', !mainRunning);
-  teamBlueEl.classList.toggle('disabled', !mainRunning);
+function renderScores() {
+  scoreRedEl.textContent = String(scoreRed);
+  scoreBlueEl.textContent = String(scoreBlue);
 }
 
 // ================== BUCLE ==================
@@ -80,11 +65,7 @@ function tick() {
   lastTick = now;
 
   mainElapsedMs += delta;
-  if (activeTeam === 'red') timeRed += delta;
-  if (activeTeam === 'blue') timeBlue += delta;
-
   renderMain();
-  renderTeams();
   loopId = requestAnimationFrame(tick);
 }
 
@@ -112,52 +93,57 @@ function toggleMain() {
     started = true;
     primeAudio();
   }
+
   mainRunning = !mainRunning;
-  if (mainRunning) startLoop(); else stopLoop();
+  if (mainRunning) {
+    startLoop();
+  } else {
+    stopLoop();
+  }
+
   renderMain();
-  renderTeams();
 }
 
-// ================== EQUIPOS ==================
+// ================== PUNTOS ==================
 
-function toggleTeam(team) {
-  if (!mainRunning) return;
-  activeTeam = (activeTeam === team) ? null : team;
-  renderTeams();
+function changeScore(team, delta) {
+  if (team === 'red') {
+    scoreRed = Math.max(0, scoreRed + delta);
+  } else if (team === 'blue') {
+    scoreBlue = Math.max(0, scoreBlue + delta);
+  }
+  renderScores();
+}
+
+function handleScoreButton(team, delta) {
+  if (!started) return;
+  changeScore(team, delta);
 }
 
 // ================== RESET / FINALIZAR ==================
 
-function resetAll() {
+function resetRound() {
   mainElapsedMs = 0;
   mainRunning = false;
   started = false;
   overtimeAlerted = false;
-  timeRed = 0;
-  timeBlue = 0;
-  activeTeam = null;
+  scoreRed = 0;
+  scoreBlue = 0;
   stopLoop();
   renderMain();
-  renderTeams();
+  renderScores();
 }
 
 function finishRound() {
   mainRunning = false;
-  activeTeam = null;
   stopLoop();
-  renderTeams();
 
-  const total = timeRed + timeBlue;
-  const pRed = total > 0 ? Math.round((timeRed / total) * 100) : 50;
-  const pBlue = total > 0 ? 100 - pRed : 50;
-
-  let winnerText;
-  if (pRed === pBlue) winnerText = 'EMPATE';
-  else if (pRed > pBlue) winnerText = 'EQUIPO ROJO GANA';
-  else winnerText = 'EQUIPO AZUL GANA';
+  const winnerText =
+    scoreRed === scoreBlue ? 'EMPATE' :
+    scoreRed > scoreBlue ? 'EQUIPO ROJO GANA' : 'EQUIPO AZUL GANA';
 
   modalWinner.textContent = winnerText;
-  modalDetail.textContent = `${pRed}% - ${pBlue}% de posesión`;
+  modalDetail.textContent = `${scoreRed} - ${scoreBlue} capturas`;
   modal.classList.add('show');
 }
 
@@ -168,11 +154,25 @@ document.querySelectorAll('.btn-adjust').forEach((btn) => {
 });
 
 mainPlayPause.addEventListener('click', toggleMain);
-teamRedEl.addEventListener('click', () => toggleTeam('red'));
-teamBlueEl.addEventListener('click', () => toggleTeam('blue'));
-resetBtn.addEventListener('click', resetAll);
+minusRedBtn.addEventListener('click', (event) => {
+  event.stopPropagation();
+  handleScoreButton('red', -1);
+});
+minusBlueBtn.addEventListener('click', (event) => {
+  event.stopPropagation();
+  handleScoreButton('blue', -1);
+});
+scoreCardRed.addEventListener('click', (event) => {
+  if (event.target.closest('.btn-minus')) return;
+  handleScoreButton('red', 1);
+});
+scoreCardBlue.addEventListener('click', (event) => {
+  if (event.target.closest('.btn-minus')) return;
+  handleScoreButton('blue', 1);
+});
+resetBtn.addEventListener('click', resetRound);
 finishBtn.addEventListener('click', finishRound);
 closeModal.addEventListener('click', () => modal.classList.remove('show'));
 
 renderMain();
-renderTeams();
+renderScores();

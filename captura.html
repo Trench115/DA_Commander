@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Captura la Bandera - Airsoft Control</title>
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="theme-color" content="#0d0d0d">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="app">
+
+    <a href="index.html" class="back-link">&larr; Menú</a>
+
+    <div class="main-timer">
+      <div class="main-timer-label">TIEMPO DE RONDA</div>
+      <div class="main-timer-display" id="mainTimerDisplay">05:00</div>
+
+      <div class="setup-controls" id="setupControls">
+        <button class="btn-adjust" data-adjust="-60">-1m</button>
+        <button class="btn-adjust" data-adjust="60">+1m</button>
+      </div>
+
+      <div class="main-timer-controls">
+        <button class="btn-main-action" id="mainPlayPause">Iniciar</button>
+      </div>
+    </div>
+
+    <div class="scores">
+      <div class="score-card score-red" id="scoreCardRed">
+        <button class="btn-minus" id="minusRed">-1</button>
+        <span class="score-team-name">EQUIPO ROJO</span>
+        <span class="score-value" id="scoreRed">0</span>
+      </div>
+
+      <div class="score-card score-blue" id="scoreCardBlue">
+        <button class="btn-minus" id="minusBlue">-1</button>
+        <span class="score-team-name">EQUIPO AZUL</span>
+        <span class="score-value" id="scoreBlue">0</span>
+      </div>
+    </div>
+
+    <div class="controls">
+      <button class="btn-secondary" id="resetBtn">Reiniciar ronda</button>
+      <button class="btn-primary" id="finishBtn">Finalizar partida</button>
+    </div>
+
+  </div>
+
+  <div class="modal" id="modal">
+    <div class="modal-content">
+      <h2 id="modalWinner">EQUIPO ROJO GANA</h2>
+      <p id="modalDetail">3 - 1 capturas</p>
+      <button id="closeModal">Cerrar</button>
+    </div>
+  </div>
+
+<script src="common.js"></script>
+<script src="captura.js"></script>
+</body>
+</html>
