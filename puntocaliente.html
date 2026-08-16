@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Posesión - Airsoft Control</title>
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="theme-color" content="#0d0d0d">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="app">
+
+    <a href="index.html" class="back-link">&larr; Menú</a>
+
+    <div class="main-timer">
+      <div class="main-timer-label">TIEMPO DE RONDA</div>
+      <div class="main-timer-display" id="mainTimerDisplay">05:00</div>
+
+      <!-- Ajustar duración: solo visible antes de darle a Iniciar -->
+      <div class="setup-controls" id="setupControls">
+        <button class="btn-adjust" data-adjust="-60">-1m</button>
+        <button class="btn-adjust" data-adjust="-10">-10s</button>
+        <button class="btn-adjust" data-adjust="10">+10s</button>
+        <button class="btn-adjust" data-adjust="60">+1m</button>
+      </div>
+
+      <div class="main-timer-controls">
+        <button class="btn-main-action" id="mainPlayPause">Iniciar</button>
+      </div>
+    </div>
+
+    <div class="teams">
+      <button class="team team-red" id="teamRed">
+        <span class="team-name">EQUIPO ROJO</span>
+        <span class="team-time" id="timeRed">00:00</span>
+        <span class="team-percent" id="percentRed">50%</span>
+      </button>
+
+      <button class="team team-blue" id="teamBlue">
+        <span class="team-name">EQUIPO AZUL</span>
+        <span class="team-time" id="timeBlue">00:00</span>
+        <span class="team-percent" id="percentBlue">50%</span>
+      </button>
+    </div>
+
+    <div class="controls">
+      <button class="btn-secondary" id="resetBtn">Reiniciar ronda</button>
+      <button class="btn-primary" id="finishBtn">Finalizar partida</button>
+    </div>
+
+  </div>
+
+  <div class="modal" id="modal">
+    <div class="modal-content">
+      <h2 id="modalWinner">EQUIPO ROJO GANA</h2>
+      <p id="modalDetail">65% de posesión</p>
+      <button id="closeModal">Cerrar</button>
+    </div>
+  </div>
+
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Airsoft Control</title>
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="theme-color" content="#0d0d0d">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="menu">
+    <h1 class="menu-title">AIRSOFT CONTROL</h1>
+
+    <a href="puntocaliente.html" class="mode-card">
+      <span class="mode-name">Posesión de Objetivo</span>
+      <span class="mode-desc">Cronometra qué equipo controla el punto</span>
+    </a>
+
+    <!-- Aquí iremos añadiendo más modos de juego en el futuro -->
+
+  </div>
+
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js'));
+  }
+</script>
+</body>
+</html>
