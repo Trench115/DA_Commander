@@ -362,12 +362,11 @@ a {
   position: absolute;
   top: 12px;
   right: 12px;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  background: rgba(0, 0, 0, 0.4);
-  color: white;
+  width: 60px;
+  height: 60px;
+  border: 1px solid rgb(211, 19, 35);
+  background: rgba(0, 0, 0, 0.6);
+  color:  rgb(211, 19, 35);
   font-size: 13px;
   font-weight: 700;
   font-family: inherit;
