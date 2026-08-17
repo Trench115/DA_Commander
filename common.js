@@ -74,15 +74,16 @@ function primeAudio() {
 function beep() {
   if (!audioCtx) return;
 
-  const tones = [880, 660, 880];
+  const tones = [1320, 990, 1320];
   tones.forEach((frequency, index) => {
     const osc = audioCtx.createOscillator();
     const gain = audioCtx.createGain();
+    osc.type = 'square';
     osc.connect(gain);
     gain.connect(audioCtx.destination);
     osc.frequency.setValueAtTime(frequency, audioCtx.currentTime + index * 0.22);
-    gain.gain.setValueAtTime(0, audioCtx.currentTime + index * 0.22);
-    gain.gain.linearRampToValueAtTime(0.25, audioCtx.currentTime + index * 0.22 + 0.02);
+    gain.gain.setValueAtTime(0.0001, audioCtx.currentTime + index * 0.22);
+    gain.gain.linearRampToValueAtTime(0.9, audioCtx.currentTime + index * 0.22 + 0.02);
     gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + index * 0.22 + 0.18);
     osc.start(audioCtx.currentTime + index * 0.22);
     osc.stop(audioCtx.currentTime + index * 0.22 + 0.18);

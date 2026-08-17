@@ -120,6 +120,75 @@ a {
   gap: 12px;
 }
 
+.menu-timer-panel {
+  width: min(100%, 420px);
+  background: rgba(9, 12, 9, 0.82);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 16px 14px 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 0 18px rgba(0, 0, 0, 0.18);
+}
+
+.menu-timer-label {
+  color: var(--text-dim);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+.menu-timer-display {
+  font-size: 42px;
+  font-weight: 800;
+  color: var(--accent);
+  letter-spacing: 2px;
+  font-variant-numeric: tabular-nums;
+  text-shadow: 0 0 10px rgba(124, 255, 107, 0.45);
+}
+
+.menu-timer-controls {
+  width: 100%;
+  display: flex;
+  gap: 8px;
+}
+
+.menu-timer-btn,
+.menu-timer-start {
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  background: rgba(0, 0, 0, 0.35);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.menu-timer-btn {
+  flex: 1;
+  padding: 10px 8px;
+}
+
+.menu-timer-start {
+  width: 100%;
+  padding: 12px 10px;
+  border-color: var(--accent);
+  background: rgba(124, 255, 107, 0.08);
+  color: var(--accent);
+}
+
+.menu-timer-start.running {
+  background: rgba(255, 176, 32, 0.12);
+  border-color: var(--warn);
+  color: var(--warn);
+}
+
 .score-team {
   border: 1px solid var(--line);
   background: rgba(18, 22, 15, 0.8);
@@ -201,7 +270,15 @@ a {
 .mode-card {
   width: 100%;
   max-width: 420px;
-  background: var(--panel);
+  background-color: rgba(17, 24, 18, 0.888);
+  background-image: repeating-linear-gradient(
+    0deg,
+    rgba(124, 255, 107, 0.035) 0px,
+    rgba(124, 255, 107, 0.11) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+
   border: 1px solid var(--line);
   border-radius: 2px;
   padding: 22px 26px;
@@ -340,6 +417,27 @@ a {
   flex: 1;
   display: flex;
   flex-direction: column;
+  position: relative;
+}
+
+.neutral-control {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 92px;
+  height: 92px;
+  border: 2px solid var(--accent);
+  border-radius: 50%;
+  background: rgba(9, 12, 9, 0.8);
+  color: var(--accent);
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  z-index: 1;
+  box-shadow: 0 0 18px rgba(124, 255, 107, 0.25);
 }
 
 .team {
@@ -587,6 +685,7 @@ a {
   background: rgba(0, 0, 0, 0.85);
   align-items: center;
   justify-content: center;
+  z-index: 20;
 }
 
 .modal.show {
@@ -602,6 +701,8 @@ a {
   width: 85%;
   max-width: 340px;
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
+  position: relative;
+  z-index: 21;
 }
 
 .modal-content h2 {

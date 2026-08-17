@@ -22,6 +22,7 @@ const mainPlayPause = document.getElementById('mainPlayPause');
 
 const teamRedEl = document.getElementById('teamRed');
 const teamBlueEl = document.getElementById('teamBlue');
+const neutralControlEl = document.getElementById('neutralControl');
 const timeRedEl = document.getElementById('timeRed');
 const timeBlueEl = document.getElementById('timeBlue');
 const percentRedEl = document.getElementById('percentRed');
@@ -122,6 +123,11 @@ function toggleMain() {
 
 function toggleTeam(team) {
   if (!mainRunning) return;
+  if (team === 'neutral') {
+    activeTeam = null;
+    renderTeams();
+    return;
+  }
   activeTeam = (activeTeam === team) ? null : team;
   renderTeams();
 }
@@ -178,6 +184,7 @@ document.querySelectorAll('.btn-adjust').forEach((btn) => {
 mainPlayPause.addEventListener('click', toggleMain);
 teamRedEl.addEventListener('click', () => toggleTeam('red'));
 teamBlueEl.addEventListener('click', () => toggleTeam('blue'));
+neutralControlEl.addEventListener('click', () => toggleTeam('neutral'));
 resetBtn.addEventListener('click', resetAll);
 finishBtn.addEventListener('click', finishRound);
 closeModal.addEventListener('click', () => modal.classList.remove('show'));

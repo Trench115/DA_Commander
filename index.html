@@ -38,6 +38,18 @@
       <button class="score-reset" type="button" id="menuResetScores">Reiniciar marcador</button>
     </div>
 
+    <div class="menu-timer-panel" aria-label="Cronómetro del menú">
+      <div class="menu-timer-label">Cronómetro</div>
+      <div class="menu-timer-display" id="menuTimerDisplay">15:00</div>
+
+      <div class="menu-timer-controls">
+        <button type="button" class="menu-timer-btn" id="menuTimerMinus">-1 min</button>
+        <button type="button" class="menu-timer-btn" id="menuTimerPlus">+1 min</button>
+      </div>
+
+      <button type="button" class="menu-timer-start" id="menuTimerToggle">Iniciar</button>
+    </div>
+
     <a href="posesion.html" class="mode-card">
       <span class="mode-name">Punto caliente</span>
     </a>
@@ -59,12 +71,91 @@
   const menuScoreRedEl = document.getElementById('menuScoreRed');
   const menuScoreBlueEl = document.getElementById('menuScoreBlue');
   const menuResetScoresBtn = document.getElementById('menuResetScores');
+  const menuTimerDisplay = document.getElementById('menuTimerDisplay');
+  const menuTimerToggleBtn = document.getElementById('menuTimerToggle');
+  const menuTimerMinusBtn = document.getElementById('menuTimerMinus');
+  const menuTimerPlusBtn = document.getElementById('menuTimerPlus');
+
+  let menuTimerMs = 15 * 60 * 1000;
+  let menuTimerRunning = false;
+  let menuTimerStarted = false;
+  let menuTimerLastTick = Date.now();
+  let menuTimerLoopId = null;
 
   function renderMenuScores() {
     const scores = getTeamWins();
     menuScoreRedEl.textContent = String(scores.red);
     menuScoreBlueEl.textContent = String(scores.blue);
   }
+
+  function renderMenuTimer() {
+    menuTimerDisplay.textContent = formatTime(menuTimerMs);
+    menuTimerToggleBtn.textContent = menuTimerRunning ? 'Pausar' : (menuTimerStarted ? 'Reanudar' : 'Iniciar');
+    menuTimerToggleBtn.classList.toggle('running', menuTimerRunning);
+  }
+
+  function stopMenuTimerLoop() {
+    if (menuTimerLoopId) {
+      clearInterval(menuTimerLoopId);
+      menuTimerLoopId = null;
+    }
+  }
+
+  function tickMenuTimer() {
+    const now = Date.now();
+    const delta = now - menuTimerLastTick;
+    menuTimerLastTick = now;
+
+    if (!menuTimerRunning) return;
+
+    menuTimerMs = Math.max(0, menuTimerMs - delta);
+    renderMenuTimer();
+
+    if (menuTimerMs === 0) {
+      menuTimerRunning = false;
+      stopMenuTimerLoop();
+      beep();
+      beep();
+      beep();
+      renderMenuTimer();
+    }
+  }
+
+  function startMenuTimerLoop() {
+    if (menuTimerLoopId) return;
+    menuTimerLastTick = Date.now();
+    menuTimerLoopId = setInterval(tickMenuTimer, 200);
+  }
+
+  function toggleMenuTimer() {
+    if (!menuTimerStarted) {
+      menuTimerStarted = true;
+      primeAudio();
+    }
+
+    menuTimerRunning = !menuTimerRunning;
+    if (menuTimerRunning) {
+      startMenuTimerLoop();
+    } else {
+      stopMenuTimerLoop();
+    }
+
+    renderMenuTimer();
+  }
+
+  menuTimerMinusBtn.addEventListener('click', () => {
+    if (menuTimerRunning) return;
+    menuTimerMs = Math.max(0, menuTimerMs - 60 * 1000);
+    menuTimerDisplay.textContent = formatTime(menuTimerMs);
+  });
+
+  menuTimerPlusBtn.addEventListener('click', () => {
+    if (menuTimerRunning) return;
+    menuTimerMs += 60 * 1000;
+    menuTimerDisplay.textContent = formatTime(menuTimerMs);
+  });
+
+  menuTimerToggleBtn.addEventListener('click', toggleMenuTimer);
 
   document.querySelectorAll('.score-btn').forEach((button) => {
     button.addEventListener('click', () => {
@@ -81,6 +172,7 @@
   });
 
   renderMenuScores();
+  renderMenuTimer();
 
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js'));
