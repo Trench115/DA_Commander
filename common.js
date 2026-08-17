@@ -1,5 +1,59 @@
 // Funciones compartidas por todos los modos de juego
 
+const TEAM_WIN_STORAGE_KEY = 'da_commander_team_wins';
+
+function readTeamWins() {
+  try {
+    const raw = localStorage.getItem(TEAM_WIN_STORAGE_KEY);
+    if (!raw) return { red: 0, blue: 0 };
+
+    const parsed = JSON.parse(raw);
+    return {
+      red: Number(parsed.red) || 0,
+      blue: Number(parsed.blue) || 0,
+    };
+  } catch (error) {
+    return { red: 0, blue: 0 };
+  }
+}
+
+function writeTeamWins(nextState) {
+  const safeState = {
+    red: Math.max(0, Number(nextState.red) || 0),
+    blue: Math.max(0, Number(nextState.blue) || 0),
+  };
+
+  try {
+    localStorage.setItem(TEAM_WIN_STORAGE_KEY, JSON.stringify(safeState));
+  } catch (error) {
+    // Ignoramos errores de almacenamiento en navegadores sin acceso a localStorage.
+  }
+
+  return safeState;
+}
+
+function getTeamWins() {
+  return readTeamWins();
+}
+
+function changeTeamWins(team, delta) {
+  const current = readTeamWins();
+  const next = {
+    ...current,
+    [team]: Math.max(0, (current[team] || 0) + Number(delta || 0)),
+  };
+  return writeTeamWins(next);
+}
+
+function registerGameWin(team) {
+  if (team !== 'red' && team !== 'blue') return getTeamWins();
+  return changeTeamWins(team, 1);
+}
+
+function resetTeamWins() {
+  return writeTeamWins({ red: 0, blue: 0 });
+}
+
 function formatTime(ms) {
   const totalSec = Math.floor(Math.abs(ms) / 1000);
   const min = Math.floor(totalSec / 60).toString().padStart(2, '0');

@@ -152,9 +152,17 @@ function finishRound() {
   const pBlue = total > 0 ? 100 - pRed : 50;
 
   let winnerText;
+  let winnerTeam = null;
   if (pRed === pBlue) winnerText = 'EMPATE';
-  else if (pRed > pBlue) winnerText = 'EQUIPO ROJO GANA';
-  else winnerText = 'EQUIPO AZUL GANA';
+  else if (pRed > pBlue) {
+    winnerText = 'EQUIPO ROJO GANA';
+    winnerTeam = 'red';
+  } else {
+    winnerText = 'EQUIPO AZUL GANA';
+    winnerTeam = 'blue';
+  }
+
+  if (winnerTeam) registerGameWin(winnerTeam);
 
   modalWinner.textContent = winnerText;
   modalDetail.textContent = `${pRed}% - ${pBlue}% de posesión`;

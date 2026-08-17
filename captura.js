@@ -138,9 +138,18 @@ function finishRound() {
   mainRunning = false;
   stopLoop();
 
-  const winnerText =
-    scoreRed === scoreBlue ? 'EMPATE' :
-    scoreRed > scoreBlue ? 'EQUIPO ROJO GANA' : 'EQUIPO AZUL GANA';
+  let winnerText = 'EMPATE';
+  let winnerTeam = null;
+
+  if (scoreRed > scoreBlue) {
+    winnerText = 'EQUIPO ROJO GANA';
+    winnerTeam = 'red';
+  } else if (scoreBlue > scoreRed) {
+    winnerText = 'EQUIPO AZUL GANA';
+    winnerTeam = 'blue';
+  }
+
+  if (winnerTeam) registerGameWin(winnerTeam);
 
   modalWinner.textContent = winnerText;
   modalDetail.textContent = `${scoreRed} - ${scoreBlue} capturas`;

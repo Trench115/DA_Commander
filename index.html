@@ -16,6 +16,28 @@
   <div class="menu">
     <h1 class="menu-title">DISTRITO AIRSOFT</h1>
 
+    <div class="scoreboard-panel" aria-label="Marcador del menú">
+      <div class="score-team score-red">
+        <span class="score-label">Equipo rojo</span>
+        <div class="score-row">
+          <button class="score-btn score-minus" type="button" data-team="red" data-delta="-1">-</button>
+          <span class="score-value" id="menuScoreRed">0</span>
+          <button class="score-btn score-plus" type="button" data-team="red" data-delta="1">+</button>
+        </div>
+      </div>
+
+      <div class="score-team score-blue">
+        <span class="score-label">Equipo azul</span>
+        <div class="score-row">
+          <button class="score-btn score-minus" type="button" data-team="blue" data-delta="-1">-</button>
+          <span class="score-value" id="menuScoreBlue">0</span>
+          <button class="score-btn score-plus" type="button" data-team="blue" data-delta="1">+</button>
+        </div>
+      </div>
+
+      <button class="score-reset" type="button" id="menuResetScores">Reiniciar marcador</button>
+    </div>
+
     <a href="posesion.html" class="mode-card">
       <span class="mode-name">Punto caliente</span>
     </a>
@@ -32,7 +54,34 @@
 
   </div>
 
+<script src="common.js"></script>
 <script>
+  const menuScoreRedEl = document.getElementById('menuScoreRed');
+  const menuScoreBlueEl = document.getElementById('menuScoreBlue');
+  const menuResetScoresBtn = document.getElementById('menuResetScores');
+
+  function renderMenuScores() {
+    const scores = getTeamWins();
+    menuScoreRedEl.textContent = String(scores.red);
+    menuScoreBlueEl.textContent = String(scores.blue);
+  }
+
+  document.querySelectorAll('.score-btn').forEach((button) => {
+    button.addEventListener('click', () => {
+      const team = button.dataset.team;
+      const delta = Number(button.dataset.delta || 0);
+      changeTeamWins(team, delta);
+      renderMenuScores();
+    });
+  });
+
+  menuResetScoresBtn.addEventListener('click', () => {
+    resetTeamWins();
+    renderMenuScores();
+  });
+
+  renderMenuScores();
+
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js'));
   }
