@@ -12,19 +12,25 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
   <div class="app roulette-screen">
+
     <a href="index.html" class="back-link">&larr; Menú</a>
+
     <div class="roulette-stage">
       <div class="roulette-pointer" aria-hidden="true"></div>
-      <div class="roulette-wheel" id="rouletteWheel" aria-label="Ruleta"></div>
+      <div class="roulette-wheel" id="rouletteWheel" aria-live="polite"></div>
     </div>
+
     <div class="roulette-controls">
       <button class="roulette-spin" id="spinBtn" type="button">Girar</button>
     </div>
-    <div class="roulette-result" id="rouletteResult">Sin opciones</div>
+
+    <div class="roulette-result" id="rouletteResult">Pulsa girar para empezar</div>
+
   </div>
 
-  <script src="common.js"></script>
-  <script src="ruleta.js"></script>
+<script src="common.js"></script>
+<script src="ruleta.js"></script>
 </body>
 </html>
