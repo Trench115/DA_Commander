@@ -19,7 +19,17 @@
 
     <div class="main-timer">
       <div class="main-timer-label">TIEMPO DE RONDA</div>
-      <div class="main-timer-display" id="mainTimerDisplay">15:00</div>
+      <div class="main-timer-scoreboard capture-scoreboard">
+        <div class="possession-score possession-score-red">
+          <span class="possession-score-label">ROJO</span>
+          <strong id="scoreRedTop">0</strong>
+        </div>
+        <div class="main-timer-display" id="mainTimerDisplay">25:00</div>
+        <div class="possession-score possession-score-blue">
+          <span class="possession-score-label">AZUL</span>
+          <strong id="scoreBlueTop">0</strong>
+        </div>
+      </div>
 
       <div class="setup-controls" id="setupControls">
         <button class="btn-adjust" data-adjust="-60">-1m</button>
@@ -31,17 +41,17 @@
       </div>
     </div>
 
-    <div class="scores">
+    <div class="scores scores-horizontal">
       <div class="score-card score-red" id="scoreCardRed">
         <button class="btn-minus" id="minusRed">-1</button>
         <span class="score-team-name">EQUIPO ROJO</span>
-        <span class="score-value" id="scoreRed">0</span>
+        <button class="btn-score-plus" id="plusRed" type="button">+1</button>
       </div>
 
       <div class="score-card score-blue" id="scoreCardBlue">
         <button class="btn-minus" id="minusBlue">-1</button>
         <span class="score-team-name">EQUIPO AZUL</span>
-        <span class="score-value" id="scoreBlue">0</span>
+        <button class="btn-score-plus" id="plusBlue" type="button">+1</button>
       </div>
     </div>
 

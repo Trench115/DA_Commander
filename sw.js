@@ -5,12 +5,16 @@ const CACHE_NAME = 'airsoft-cache-v3';
 const FILES_TO_CACHE = [
   './index.html',
   './posesion.html',
+  './punto-caliente-extremo.html',
   './captura.html',
+  './dominio.html',
   './temporizadores.html',
   './style.css',
   './common.js',
   './script.js',
+  './punto-caliente-extremo.js',
   './captura.js',
+  './dominio.js',
   './temporizadores.js',
   './manifest.json',
   './icon.png'

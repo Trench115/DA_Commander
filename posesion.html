@@ -19,7 +19,17 @@
 
     <div class="main-timer">
       <div class="main-timer-label">TIEMPO DE RONDA</div>
-      <div class="main-timer-display" id="mainTimerDisplay">15:00</div>
+      <div class="main-timer-scoreboard">
+        <div class="possession-score possession-score-red">
+          <span class="possession-score-label">ROJO</span>
+          <strong id="scoreRed">0</strong>
+        </div>
+        <div class="main-timer-display" id="mainTimerDisplay">25:00</div>
+        <div class="possession-score possession-score-blue">
+          <span class="possession-score-label">AZUL</span>
+          <strong id="scoreBlue">0</strong>
+        </div>
+      </div>
 
       <!-- Ajustar duración: solo visible antes de darle a Iniciar -->
       <div class="setup-controls" id="setupControls">
@@ -36,7 +46,6 @@
       <button class="team team-red" id="teamRed">
         <span class="team-name">EQUIPO ROJO</span>
         <span class="team-time" id="timeRed">00:00</span>
-        <span class="team-percent" id="percentRed">50%</span>
       </button>
 
       <button class="neutral-control" id="neutralControl" type="button" aria-label="Punto neutro">
@@ -46,7 +55,6 @@
       <button class="team team-blue" id="teamBlue">
         <span class="team-name">EQUIPO AZUL</span>
         <span class="team-time" id="timeBlue">00:00</span>
-        <span class="team-percent" id="percentBlue">50%</span>
       </button>
     </div>
 
@@ -60,7 +68,7 @@
   <div class="modal" id="modal">
     <div class="modal-content">
       <h2 id="modalWinner">EQUIPO ROJO GANA</h2>
-      <p id="modalDetail">65% de posesión</p>
+      <p id="modalDetail">0 - 0 puntos</p>
       <button id="closeModal">Cerrar</button>
     </div>
   </div>

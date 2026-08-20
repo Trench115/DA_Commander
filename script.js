@@ -1,7 +1,7 @@
 // ================== ESTADO ==================
 // (formatTime, primeAudio y beep vienen de common.js)
 
-let mainDuration = 15 * 60;
+let mainDuration = 25 * 60;
 let mainElapsedMs = 0;
 let mainRunning = false;
 let started = false;
@@ -25,8 +25,8 @@ const teamBlueEl = document.getElementById('teamBlue');
 const neutralControlEl = document.getElementById('neutralControl');
 const timeRedEl = document.getElementById('timeRed');
 const timeBlueEl = document.getElementById('timeBlue');
-const percentRedEl = document.getElementById('percentRed');
-const percentBlueEl = document.getElementById('percentBlue');
+const scoreRedEl = document.getElementById('scoreRed');
+const scoreBlueEl = document.getElementById('scoreBlue');
 
 const resetBtn = document.getElementById('resetBtn');
 const finishBtn = document.getElementById('finishBtn');
@@ -61,11 +61,8 @@ function renderTeams() {
   timeRedEl.textContent = formatTime(timeRed);
   timeBlueEl.textContent = formatTime(timeBlue);
 
-  const total = timeRed + timeBlue;
-  const pRed = total > 0 ? Math.round((timeRed / total) * 100) : 50;
-  const pBlue = total > 0 ? 100 - pRed : 50;
-  percentRedEl.textContent = `${pRed}%`;
-  percentBlueEl.textContent = `${pBlue}%`;
+  scoreRedEl.textContent = String(Math.floor(timeRed / 5000));
+  scoreBlueEl.textContent = String(Math.floor(timeBlue / 5000));
 
   teamRedEl.classList.toggle('active', activeTeam === 'red');
   teamBlueEl.classList.toggle('active', activeTeam === 'blue');
@@ -153,14 +150,13 @@ function finishRound() {
   stopLoop();
   renderTeams();
 
-  const total = timeRed + timeBlue;
-  const pRed = total > 0 ? Math.round((timeRed / total) * 100) : 50;
-  const pBlue = total > 0 ? 100 - pRed : 50;
+  const scoreRed = Math.floor(timeRed / 5000);
+  const scoreBlue = Math.floor(timeBlue / 5000);
 
   let winnerText;
   let winnerTeam = null;
-  if (pRed === pBlue) winnerText = 'EMPATE';
-  else if (pRed > pBlue) {
+  if (scoreRed === scoreBlue) winnerText = 'EMPATE';
+  else if (scoreRed > scoreBlue) {
     winnerText = 'EQUIPO ROJO GANA';
     winnerTeam = 'red';
   } else {
@@ -171,7 +167,7 @@ function finishRound() {
   if (winnerTeam) registerGameWin(winnerTeam);
 
   modalWinner.textContent = winnerText;
-  modalDetail.textContent = `${pRed}% - ${pBlue}% de posesión`;
+  modalDetail.textContent = `${scoreRed} - ${scoreBlue} puntos`;
   modal.classList.add('show');
 }
 

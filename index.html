@@ -1,3 +1,7 @@
+//git add .
+git commit -m "Descripción breve del cambio"
+git push//
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -40,7 +44,7 @@
 
     <div class="menu-timer-panel" aria-label="Cronómetro del menú">
       <div class="menu-timer-label">Cronómetro</div>
-      <div class="menu-timer-display" id="menuTimerDisplay">15:00</div>
+      <div class="menu-timer-display" id="menuTimerDisplay">25:00</div>
 
       <div class="menu-timer-controls">
         <button type="button" class="menu-timer-btn" id="menuTimerMinus">-1 min</button>
@@ -54,8 +58,16 @@
       <span class="mode-name">Punto caliente</span>
     </a>
 
-    <a href="captura.html" class="mode-card">
-      <span class="mode-name">Captura la Bandera</span>
+    <a href="punto-caliente-extremo.html" class="mode-card">
+      <span class="mode-name">Punto caliente extremo</span>
+    </a>
+
+    <a href="dominio.html" class="mode-card mode-card-dominio">
+      <span class="mode-name">Dominio</span>
+    </a>
+
+    <a href="captura.html" class="mode-card mode-card-free">
+      <span class="mode-name">Modo libre</span>
     </a>
 
     <div class="menu-secondary-actions">
@@ -83,7 +95,7 @@
   const menuTimerMinusBtn = document.getElementById('menuTimerMinus');
   const menuTimerPlusBtn = document.getElementById('menuTimerPlus');
 
-  let menuTimerMs = 15 * 60 * 1000;
+  let menuTimerMs = 25 * 60 * 1000;
   let menuTimerRunning = false;
   let menuTimerStarted = false;
   let menuTimerLastTick = Date.now();

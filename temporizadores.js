@@ -3,7 +3,7 @@
 // Si algún día quieres un 6º cronómetro, solo tienes que añadir una línea aquí.
 
 const timersConfig = [
-  { label: 'Partida normal', defaultDuration: 15 * 60 },
+  { label: 'Partida normal', defaultDuration: 25 * 60 },
   { label: 'Descanso', defaultDuration: 20 * 60 },
   { label: 'Crono 3', defaultDuration: 0 },
   { label: 'Crono 4', defaultDuration: 0 },

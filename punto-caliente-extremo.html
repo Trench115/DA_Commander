@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Punto caliente extremo - Airsoft Control</title>
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="theme-color" content="#0d0d0d">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app extremo-app">
+    <a href="index.html" class="back-link">&larr; Menú</a>
+
+    <div class="main-timer extremo-main-timer">
+      <div class="main-timer-label">TIEMPO DE PARTIDA</div>
+      <div class="main-timer-scoreboard">
+        <div class="possession-score possession-score-red">
+          <span class="possession-score-label">ROJO</span>
+          <strong id="scoreRed">0</strong>
+        </div>
+        <div class="main-timer-display" id="mainTimerDisplay">25:00</div>
+        <div class="possession-score possession-score-blue">
+          <span class="possession-score-label">AZUL</span>
+          <strong id="scoreBlue">0</strong>
+        </div>
+      </div>
+      <div class="setup-controls" id="setupControls">
+        <button class="btn-adjust" data-adjust="-60" type="button">-1m</button>
+        <button class="btn-adjust" data-adjust="60" type="button">+1m</button>
+      </div>
+      <div class="extremo-round-label">MINIRRONDA <strong id="roundNumber">1</strong></div>
+      <div class="main-timer-controls">
+        <button class="btn-main-action" id="mainPlayPause" type="button">Iniciar partida</button>
+      </div>
+    </div>
+
+    <section class="extremo-round-panel" aria-label="Control de minirronda">
+      <div class="extremo-round-heading">CONTROL DE MINIRRONDA</div>
+      <div class="extremo-round-display" id="roundTimerDisplay">03:00</div>
+      <div class="extremo-round-adjust">
+        <button class="btn-adjust" id="roundMinus" type="button">-30 s</button>
+        <button class="btn-adjust" id="roundPlus" type="button">+30 s</button>
+      </div>
+      <div class="extremo-round-actions">
+        <button class="btn-main-action" id="roundToggle" type="button">Iniciar ronda</button>
+        <button class="extremo-finish-round" id="roundFinish" type="button">Finalizar ronda</button>
+      </div>
+    </section>
+
+    <section class="extremo-decision" id="roundDecision" aria-label="Resultado de la minirronda">
+      <div class="extremo-decision-label">¿QUIÉN GANA EL PUNTO?</div>
+      <div class="extremo-decision-buttons">
+        <button class="extremo-decision-red" data-winner="red" type="button">ROJO</button>
+        <button class="extremo-decision-neutral" data-winner="neutral" type="button">NEUTRO</button>
+        <button class="extremo-decision-blue" data-winner="blue" type="button">AZUL</button>
+      </div>
+    </section>
+
+    <div class="controls extremo-controls">
+      <button class="btn-secondary" id="resetBtn" type="button">Reiniciar partida</button>
+      <button class="btn-primary" id="finishBtn" type="button">Finalizar partida</button>
+    </div>
+  </div>
+
+  <div class="modal" id="modal">
+    <div class="modal-content">
+      <h2 id="modalWinner">EMPATE</h2>
+      <p id="modalDetail">0 - 0 puntos</p>
+      <button id="closeModal" type="button">Cerrar</button>
+    </div>
+  </div>
+
+  <script src="common.js"></script>
+  <script src="punto-caliente-extremo.js"></script>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Dominio - Airsoft Control</title>
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="theme-color" content="#0d0d0d">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app dominio-app">
+    <a href="index.html" class="back-link">&larr; Menú</a>
+
+    <div class="main-timer dominio-header">
+      <div class="main-timer-label">TIEMPO DE RONDA</div>
+      <div class="main-timer-scoreboard dominio-scoreboard">
+        <div class="dominio-team-score dominio-team-score-red">
+          <span class="dominio-score-label">ROJO</span>
+          <div class="dominio-score-line">
+            <strong id="scoreRed">1000</strong>
+            <div class="dominio-score-bar" aria-label="Puntos restantes del equipo rojo">
+              <span id="barRed"></span>
+            </div>
+          </div>
+        </div>
+        <div class="main-timer-display" id="mainTimerDisplay">25:00</div>
+        <div class="dominio-team-score dominio-team-score-blue">
+          <span class="dominio-score-label">AZUL</span>
+          <div class="dominio-score-line">
+            <strong id="scoreBlue">1000</strong>
+            <div class="dominio-score-bar" aria-label="Puntos restantes del equipo azul">
+              <span id="barBlue"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="setup-controls" id="setupControls">
+        <button class="btn-adjust" data-adjust="-60">-1m</button>
+        <button class="btn-adjust" data-adjust="60">+1m</button>
+      </div>
+
+      <div class="main-timer-controls">
+        <button class="btn-main-action" id="mainPlayPause">Iniciar</button>
+      </div>
+    </div>
+
+    <div class="dominio-flags" aria-label="Control de banderas">
+      <div class="dominio-flag-row" data-flag="a">
+        <span class="dominio-flag-name">BANDERA A</span>
+        <div class="dominio-flag-sides">
+          <button class="dominio-flag-side dominio-flag-red" type="button" data-team="red">ROJO</button>
+          <button class="dominio-flag-side dominio-flag-blue" type="button" data-team="blue">AZUL</button>
+        </div>
+        <button class="dominio-flag-neutral" type="button" data-team="neutral">NEUTRO</button>
+      </div>
+
+      <div class="dominio-flag-row" data-flag="b">
+        <span class="dominio-flag-name">BANDERA B</span>
+        <div class="dominio-flag-sides">
+          <button class="dominio-flag-side dominio-flag-red" type="button" data-team="red">ROJO</button>
+          <button class="dominio-flag-side dominio-flag-blue" type="button" data-team="blue">AZUL</button>
+        </div>
+        <button class="dominio-flag-neutral" type="button" data-team="neutral">NEUTRO</button>
+      </div>
+
+      <div class="dominio-flag-row" data-flag="c">
+        <span class="dominio-flag-name">BANDERA C</span>
+        <div class="dominio-flag-sides">
+          <button class="dominio-flag-side dominio-flag-red" type="button" data-team="red">ROJO</button>
+          <button class="dominio-flag-side dominio-flag-blue" type="button" data-team="blue">AZUL</button>
+        </div>
+        <button class="dominio-flag-neutral" type="button" data-team="neutral">NEUTRO</button>
+      </div>
+    </div>
+
+    <div class="controls">
+      <button class="btn-secondary" id="resetBtn">Reiniciar ronda</button>
+      <button class="btn-primary" id="finishBtn">Finalizar partida</button>
+    </div>
+  </div>
+
+  <div class="modal" id="modal">
+    <div class="modal-content">
+      <h2 id="modalWinner">EMPATE</h2>
+      <p id="modalDetail">1000 - 1000 puntos</p>
+      <button id="closeModal">Cerrar</button>
+    </div>
+  </div>
+
+  <script src="common.js"></script>
+  <script src="dominio.js"></script>
+</body>
+</html>
