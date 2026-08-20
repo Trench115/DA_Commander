@@ -4,6 +4,7 @@ let mainDuration = 25 * 60;
 let mainElapsedMs = 0;
 let mainRunning = false;
 let started = false;
+let roundFinished = false;
 let overtimeAlerted = false;
 
 let scoreRed = 0;
@@ -52,6 +53,7 @@ function renderMain() {
   setupControls.style.display = started ? 'none' : 'flex';
   mainPlayPause.textContent = mainRunning ? 'Pausar' : (started ? 'Reanudar' : 'Iniciar');
   mainPlayPause.classList.toggle('running', mainRunning);
+  finishBtn.disabled = roundFinished;
 }
 
 function renderScores() {
@@ -67,6 +69,12 @@ function tick() {
   lastTick = now;
 
   mainElapsedMs += delta;
+  if (mainElapsedMs >= mainDuration * 1000 && !roundFinished) {
+    mainElapsedMs = mainDuration * 1000;
+    mainRunning = false;
+    finishRound();
+    return;
+  }
   renderMain();
   loopId = requestAnimationFrame(tick);
 }
@@ -132,6 +140,7 @@ function resetRound() {
   mainElapsedMs = 0;
   mainRunning = false;
   started = false;
+  roundFinished = false;
   overtimeAlerted = false;
   scoreRed = 0;
   scoreBlue = 0;
@@ -141,6 +150,8 @@ function resetRound() {
 }
 
 function finishRound() {
+  if (roundFinished) return;
+  roundFinished = true;
   mainRunning = false;
   stopLoop();
 

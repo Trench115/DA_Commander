@@ -6,6 +6,7 @@ let mainElapsedMs = 0;
 let mainRunning = false;
 let mainStarted = false;
 let mainEnded = false;
+let matchFinished = false;
 let roundDuration = DEFAULT_ROUND_DURATION;
 let roundElapsedMs = 0;
 let roundRunning = false;
@@ -45,6 +46,7 @@ function renderMain() {
   setupControls.style.display = mainStarted ? 'none' : 'flex';
   mainPlayPause.textContent = mainRunning ? 'Pausar partida' : (mainStarted ? 'Reanudar partida' : 'Iniciar partida');
   mainPlayPause.classList.toggle('running', mainRunning);
+  finishBtn.disabled = matchFinished;
 }
 
 function renderRound() {
@@ -156,6 +158,8 @@ function chooseWinner(team) {
 }
 
 function finishRoundMatch() {
+  if (matchFinished) return;
+  matchFinished = true;
   roundDecision.classList.remove('show');
   let winnerText = 'EMPATE';
   let winnerTeam = null;
@@ -179,6 +183,7 @@ function resetMatch() {
   mainRunning = false;
   mainStarted = false;
   mainEnded = false;
+  matchFinished = false;
   roundDuration = DEFAULT_ROUND_DURATION;
   roundElapsedMs = 0;
   roundRunning = false;

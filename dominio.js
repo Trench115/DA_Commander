@@ -5,6 +5,7 @@ let mainDuration = 25 * 60;
 let mainElapsedMs = 0;
 let mainRunning = false;
 let started = false;
+let matchFinished = false;
 let overtimeAlerted = false;
 let scoreRed = MAX_SCORE;
 let scoreBlue = MAX_SCORE;
@@ -48,6 +49,7 @@ function renderMain() {
   setupControls.style.display = started ? 'none' : 'flex';
   mainPlayPause.textContent = mainRunning ? 'Pausar' : (started ? 'Reanudar' : 'Iniciar');
   mainPlayPause.classList.toggle('running', mainRunning);
+  finishBtn.disabled = matchFinished;
 }
 
 function renderScores() {
@@ -123,6 +125,7 @@ function resetRound() {
   mainElapsedMs = 0;
   mainRunning = false;
   started = false;
+  matchFinished = false;
   overtimeAlerted = false;
   scoreRed = MAX_SCORE;
   scoreBlue = MAX_SCORE;
@@ -134,7 +137,8 @@ function resetRound() {
 }
 
 function finishRound() {
-  if (!mainRunning && !started) return;
+  if (matchFinished || (!mainRunning && !started)) return;
+  matchFinished = true;
   mainRunning = false;
   stopLoop();
   renderScores();
